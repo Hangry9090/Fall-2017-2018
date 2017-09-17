@@ -1,2 +1,2 @@
-# Fall-2017-2018
+# League Database Project
 GVSU Programming Projects
