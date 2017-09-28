@@ -1,0 +1,10 @@
+Use the posted solutions to questions 1 and 2 of the previous (ER) homework and convert each one
+of the diagram into a skeleton relational database schema using the procedure and notation that we
+used in class.
+Please pay attention to the following:
+ Type your solution using double spacing.
+ You must submit the solutions to both problems.
+ I reserve the right to grade either or both of them.
+ Express every relation in the form: R (A, B, C, D, E); Underline a primary key for each relation.
+ Write the attributes of a composite key adjacent to each other – just like A, B in R (A, B, C, D E).
+ Submit a printed copy at the beginning of class on the due date.
