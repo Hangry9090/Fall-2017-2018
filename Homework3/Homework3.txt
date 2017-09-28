@@ -1,0 +1,15 @@
+Question 1:
+
+Customer (cID, cName, cAddress)
+
+Site (sID, sAddress, customer)
+
+Order (oID, oDate, oCost, customer)
+
+Product (pID, pName, pDescription, unitPrice, poh)
+
+OrderLine(oID, lineNum, qty, delivDate, site, product, order)
+
+phNum(sID, phoneNumber)
+
+Replaces(product, repProduct)
