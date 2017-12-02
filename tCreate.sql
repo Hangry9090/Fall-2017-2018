@@ -120,7 +120,7 @@ CONSTRAINT rIC5 CHECK (forDate > onDate)
 );
 
 -- ------------------------------------------------------------------
-CREATE TABLE  socialMedia
+CREATE TABLE  SocialMedia
 (
 playerID       INTEGER, 
 handle         CHAR(50)  NOT NULL,
