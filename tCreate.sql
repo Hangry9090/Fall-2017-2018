@@ -62,6 +62,8 @@ CREATE TABLE  Coaches
 coachID     INTEGER, 
 teamID      INTEGER   NOT NULL,
 name        CHAR(50)  NOT NULL,
+startDate   DATE      NOT NULL,
+endDate     DATE,
     
                     /** FIX CONSTRAINTS**/
     
