@@ -1,8 +1,10 @@
 /*
-Author: JRA 
-CREDITS: The SailorsDB is a significant extension of the one that appears
-in Ramakrishnan and Gehrke's book. I have added several extensions in order
-to demonstrate important SQL features.
+CIS 353
+ - Database Design Project 
+Marshal Brummel
+Nolan Gustafson
+Matthew Tetreau
+Tim VanDyke
 */
 -- CREATING THE TABLES
 -- --------------------------------------------------------------------
@@ -14,23 +16,17 @@ iGN         CHAR(50)    NOT NULL,
 age         NUMBER(4,1) NOT NULL,
 teamID      INTEGER     NOT NULL,   
 startDate   DATE        NOT NULL,
-endDate     DATE,
+endDate     DATE,       /*null means they are still playing*/
     
-                    /** FIX CONSTRAINTS**/
     
--- sIC1: Sailor Ids are unique
-CONSTRAINT sIC1 PRIMARY KEY (sid),
--- sIC2: Every trainee must be a sailor too.
-CONSTRAINT sIC2 FOREIGN KEY (trainee) REFERENCES Sailors(sid)
-           ON DELETE SET NULL
-           DEFERRABLE INITIALLY DEFERRED,
--- sIC3: The rating is between 1 and 15 (inclusive).
-CONSTRAINT sIC3 CHECK (rating >= 1 AND rating <= 15)
--- sIC4: The rating of a trainee can't be higher than his/her trainer.
--- Not implemented here. See class notes on SQL/DDL - ASSERTIONs.
-    
-                    /** FIX CONSTRAINTS**/
-    
+-- plyrIC1: Player Ids are unique
+CONSTRAINT plyrIC1 PRIMARY KEY (playerID),
+-- plyrIC2: Players must be 17 or older
+CONSTRAINT plyrIC2 CHECK (age >= 17),
+-- plyrIC3: players must be on a team
+CONSTRAINT plyrIC3 FOREIGN KEY (teamID) REFERENCES Team(teamID)
+            ON DELETE CASCADE
+            DEFERRABLE INITIALLY DEFERRED,
     
 );
 -- -------------------------------------------------------------------
@@ -40,21 +36,9 @@ teamID      INTEGER,
 teamName    CHAR(50)  NOT NULL,
 
     
-    
-                    /** FIX CONSTRAINTS**/
-    
--- bIC1: Boat Ids are unique.
-CONSTRAINT bIC1 PRIMARY KEY (bid),
--- bIC2: No two boats can have the same name and color.
-CONSTRAINTS bIC2 UNIQUE (bname, color),
--- bIC3: A boat color can be blue, red, green, or white only
-CONSTRAINT bIC3 CHECK (color IN ('blue', 'red', 'green', 'white')),
--- bIC4: The rate for a boat of >=30 ft length must be >= $300
-CONSTRAINT bIC4 CHECK (NOT (length >= 30 AND rate < 300))
--- bIC5: A logKeeper must be a trainee.
---       Not implemented here. See class notes on SQL/DDL - ASSERTIONs.
-    
-                    /** FIX CONSTRAINTS**/
+-- tIC1: Team Ids are unique.
+CONSTRAINT tIC1 PRIMARY KEY (teamID),
+
 );
 -- --------------------------------------------------------------------
 CREATE TABLE  Coaches
@@ -62,31 +46,17 @@ CREATE TABLE  Coaches
 coachID     INTEGER, 
 teamID      INTEGER   NOT NULL,
 name        CHAR(50)  NOT NULL,
-startDate   DATE      NOT NULL,
-endDate     DATE,
+startDate   DATE        NOT NULL,
+endDate     DATE,       /*null means they are still playing*/
     
-                    /** FIX CONSTRAINTS**/
     
--- rIC1: A boat can't be reserved more than once for the same date.
-CONSTRAINT rIC1 PRIMARY KEY (bid, forDate),
--- rIC2: A sailor can't have more than one reservation for the same date.
-CONSTRAINT rIC2 UNIQUE (sid, forDate),
--- rIC3: Only sailors can reserve boats
-CONSTRAINT rIC3 FOREIGN KEY (sid) REFERENCES Sailors(sid)
-            ON DELETE CASCADE
+-- cIC1: Coach IDs are unique.
+CONSTRAINT cIC1 PRIMARY KEY (coachID),
+-- cIC2: a coach's team must exist
+CONSTRAINT cIC2 FOREIGN KEY (teamID) REFERENCES Team(teamID)
+            ON DELETE SET NULL
             DEFERRABLE INITIALLY DEFERRED,
--- rIC4: A reserved boat must actually exist.
---       Question: SET NULL below is accepted! But will it be enforced?
-CONSTRAINT rIC4 FOREIGN KEY (bid) REFERENCES Boats(bid)
-                ON DELETE SET NULL
-                DEFERRABLE INITIALLY DEFERRED, 
--- rIC5: The date for a reservation must be later than the date it is made on.
-CONSTRAINT rIC5 CHECK (forDate > onDate)
--- rIC6: To make a reservation, a sailor's rating must be above 5.
---       Not implemented here. See class notes on SQL/DDL - ASSERTIONs.
     
-    
-                    /** FIX CONSTRAINTS**/
 );
 -- ------------------------------------------------------------------
 CREATE TABLE  Tournaments
@@ -97,28 +67,10 @@ tDate          DATE      NOT NULL,
 prizePool      INTEGER   NOT NULL,
 
     
-                    /** FIX CONSTRAINTS**/
     
--- rIC1: A boat can't be reserved more than once for the same date.
-CONSTRAINT rIC1 PRIMARY KEY (bid, forDate),
--- rIC2: A sailor can't have more than one reservation for the same date.
-CONSTRAINT rIC2 UNIQUE (sid, forDate),
--- rIC3: Only sailors can reserve boats
-CONSTRAINT rIC3 FOREIGN KEY (sid) REFERENCES Sailors(sid)
-            ON DELETE CASCADE
-            DEFERRABLE INITIALLY DEFERRED,
--- rIC4: A reserved boat must actually exist.
---       Question: SET NULL below is accepted! But will it be enforced?
-CONSTRAINT rIC4 FOREIGN KEY (bid) REFERENCES Boats(bid)
-                ON DELETE SET NULL
-                DEFERRABLE INITIALLY DEFERRED, 
--- rIC5: The date for a reservation must be later than the date it is made on.
-CONSTRAINT rIC5 CHECK (forDate > onDate)
--- rIC6: To make a reservation, a sailor's rating must be above 5.
---       Not implemented here. See class notes on SQL/DDL - ASSERTIONs.
-    
-    
-                    /** FIX CONSTRAINTS**/
+-- trnIC1: tournament IDs are unique
+CONSTRAINT trnIC1 PRIMARY KEY (tournamentID),
+
 );
 
 -- ------------------------------------------------------------------
@@ -129,28 +81,17 @@ handle         CHAR(50)  NOT NULL,
 platform       CHAR(50)  NOT NULL,
 
     
-                    /** FIX CONSTRAINTS**/
-    
--- rIC1: A boat can't be reserved more than once for the same date.
-CONSTRAINT rIC1 PRIMARY KEY (bid, forDate),
--- rIC2: A sailor can't have more than one reservation for the same date.
-CONSTRAINT rIC2 UNIQUE (sid, forDate),
--- rIC3: Only sailors can reserve boats
-CONSTRAINT rIC3 FOREIGN KEY (sid) REFERENCES Sailors(sid)
+-- smIC1: player with social media have to have a handle
+CONSTRAINT smIC1 PRIMARY KEY (playerID, handle),
+-- smIC2: a handle must belong to a player that exists
+CONSTRAINT smIC2 FOREIGN KEY (playerID) REFERENCES Players(playerID)
             ON DELETE CASCADE
             DEFERRABLE INITIALLY DEFERRED,
--- rIC4: A reserved boat must actually exist.
---       Question: SET NULL below is accepted! But will it be enforced?
-CONSTRAINT rIC4 FOREIGN KEY (bid) REFERENCES Boats(bid)
-                ON DELETE SET NULL
-                DEFERRABLE INITIALLY DEFERRED, 
--- rIC5: The date for a reservation must be later than the date it is made on.
-CONSTRAINT rIC5 CHECK (forDate > onDate)
--- rIC6: To make a reservation, a sailor's rating must be above 5.
---       Not implemented here. See class notes on SQL/DDL - ASSERTIONs.
+-- smIC3: handles for Twitter accounts must start with a '@'
+CONSTRAINT smIC3 CHECK (NOT(platform = 'Twitter' and handle != '@%')),
     
     
-                    /** FIX CONSTRAINTS**/
+                    /** Check if smIC3 looks correct pls**/
 );
 -- ------------------------------------------------------------------
 CREATE TABLE  ParticipateIn
@@ -160,28 +101,17 @@ teamID         INTEGER,
 result         INTEGER  NOT NULL,
 
     
-                    /** FIX CONSTRAINTS**/
-    
--- rIC1: A boat can't be reserved more than once for the same date.
-CONSTRAINT rIC1 PRIMARY KEY (bid, forDate),
--- rIC2: A sailor can't have more than one reservation for the same date.
-CONSTRAINT rIC2 UNIQUE (sid, forDate),
--- rIC3: Only sailors can reserve boats
-CONSTRAINT rIC3 FOREIGN KEY (sid) REFERENCES Sailors(sid)
+-- prtIC1: teams participate in any given tournament only once
+CONSTRAINT prtIC1 PRIMARY KEY (tournamentID, teamID),
+-- prtIC2: the tournament must exist
+CONSTRAINT prtIC2 FOREIGN KEY (tournamentID) REFERENCES Tournaments(tournamentID)
             ON DELETE CASCADE
             DEFERRABLE INITIALLY DEFERRED,
--- rIC4: A reserved boat must actually exist.
---       Question: SET NULL below is accepted! But will it be enforced?
-CONSTRAINT rIC4 FOREIGN KEY (bid) REFERENCES Boats(bid)
-                ON DELETE SET NULL
-                DEFERRABLE INITIALLY DEFERRED, 
--- rIC5: The date for a reservation must be later than the date it is made on.
-CONSTRAINT rIC5 CHECK (forDate > onDate)
--- rIC6: To make a reservation, a sailor's rating must be above 5.
---       Not implemented here. See class notes on SQL/DDL - ASSERTIONs.
-    
-    
-                    /** FIX CONSTRAINTS**/
+-- prtIC3: the team must exist
+CONSTRAINT prtIC3 FOREIGN KEY (teamID) REFERENCES Players(teamID)
+            ON DELETE CASCADE
+            DEFERRABLE INITIALLY DEFERRED,
+     
 );
 -- ------------------------------------------------------------------
 CREATE TABLE  PreferredChamps
@@ -189,29 +119,14 @@ CREATE TABLE  PreferredChamps
 playerID          INTEGER, 
 champName         INTEGER,
 
-    
-                    /** FIX CONSTRAINTS**/
-    
--- rIC1: A boat can't be reserved more than once for the same date.
-CONSTRAINT rIC1 PRIMARY KEY (bid, forDate),
--- rIC2: A sailor can't have more than one reservation for the same date.
-CONSTRAINT rIC2 UNIQUE (sid, forDate),
--- rIC3: Only sailors can reserve boats
-CONSTRAINT rIC3 FOREIGN KEY (sid) REFERENCES Sailors(sid)
+     
+-- pcIC1: players can have multiple preferred champs
+CONSTRAINT pcIC1 PRIMARY KEY (playerID, champName),
+-- pcIC2: the player must actually exist
+CONSTRAINT pcIC2 FOREIGN KEY (playerID) REFERENCES Players(playerID)
             ON DELETE CASCADE
             DEFERRABLE INITIALLY DEFERRED,
--- rIC4: A reserved boat must actually exist.
---       Question: SET NULL below is accepted! But will it be enforced?
-CONSTRAINT rIC4 FOREIGN KEY (bid) REFERENCES Boats(bid)
-                ON DELETE SET NULL
-                DEFERRABLE INITIALLY DEFERRED, 
--- rIC5: The date for a reservation must be later than the date it is made on.
-CONSTRAINT rIC5 CHECK (forDate > onDate)
--- rIC6: To make a reservation, a sailor's rating must be above 5.
---       Not implemented here. See class notes on SQL/DDL - ASSERTIONs.
     
-    
-                    /** FIX CONSTRAINTS**/
 );
 
 -- --------------------------------------------------------------------
