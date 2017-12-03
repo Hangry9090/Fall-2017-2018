@@ -46,6 +46,8 @@ CREATE TABLE  Coaches
 coachID     INTEGER, 
 teamID      INTEGER   NOT NULL,
 name        CHAR(50)  NOT NULL,
+startDate   DATE        NOT NULL,
+endDate     DATE,       /*null means they are still playing*/
     
     
 -- cIC1: Coach IDs are unique.
