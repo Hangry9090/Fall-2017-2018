@@ -134,19 +134,25 @@ CONSTRAINT pcIC2 FOREIGN KEY (playerID) REFERENCES Players(playerID)
 -- --------------------------------------------------------------------
 INSERT INTO Players VALUES (101, 'James', 'JamesCarries', 25, 01, TO_DATE('12/10/12', 'MM/DD/YY'), );
 INSERT INTO Players VALUES (102, 'Noah', 'ILoveDogs', 20, 01, TO_DATE('12/24/13', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (103, 'Janelle', 'Jhinelle', 18, 01, TO_DATE('12/17/15', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (104, 'Mason', 'StoneMason', 21,  01, TO_DATE('12/14/14', 'MM/DD/YY'), );
+INSERT INTO Players VALUES (103, 'Janelle', 'Jhinelle', 18, 01, TO_DATE('12/21/15', 'MM/DD/YY'), );
+INSERT INTO Players VALUES (104, 'Mason', 'StoneMason', 21,  01, TO_DATE('12/21/15', 'MM/DD/YY'), );
 INSERT INTO Players VALUES (105, 'Jacob', 'Durt', 22, 01, TO_DATE('12/20/14', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (106, 'William', 'Bill', 25, 02, TO_DATE('12/15/14', 'MM/DD/YY'), );
+INSERT INTO Players VALUES (106, 'William', 'Bill', 25, 02, TO_DATE('12/21/15', 'MM/DD/YY'), );
 INSERT INTO Players VALUES (107, 'Ethan', 'Schafey', 26, 02, TO_DATE('12/23/11', 'MM/DD/YY'), );
 INSERT INTO Players VALUES (108, 'Alexander', 'TheConqueror', 24, 02, TO_DATE('12/05/10', 'MM/DD/YY'), );
 INSERT INTO Players VALUES (109, 'Michael', 'Scotty', 36, 02, TO_DATE('12/20/11', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (110, 'Benjamin', 'Benji', 20, 02, TO_DATE('12/18/14', 'MM/DD/YY'), );
+INSERT INTO Players VALUES (110, 'Benjamin', 'Benji', 20, 02, TO_DATE('12/21/15', 'MM/DD/YY'), );
 INSERT INTO Players VALUES (111, 'Elijah', 'RavenBeggar', 29, 03, TO_DATE('12/10/10', 'MM/DD/YY'), );
 INSERT INTO Players VALUES (112, 'Aiden', 'aidaneb04', 30, 03, TO_DATE('12/14/05', 'MM/DD/YY'), );
 INSERT INTO Players VALUES (113, 'Nolan', 'Destroyer', 31, 03, TO_DATE('12/17/03', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (114, 'Daniel', 'lionTamer', 26, 03, TO_DATE('12/14/12', 'MM/DD/YY'), );
+INSERT INTO Players VALUES (114, 'Daniel', 'lionTamer', 26, 03, TO_DATE('12/21/15', 'MM/DD/YY'), );
 INSERT INTO Players VALUES (115, 'Matt', 'TaxCollector', 35, 03, TO_DATE('12/20/07', 'MM/DD/YY'), );
+INSERT INTO Players VALUES (116, 'Landon', 'MountainMover', 40, 01, TO_DATE('12/20/07', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+INSERT INTO Players VALUES (117, 'Grayson', 'WiseMan', 36, 02, TO_DATE('12/20/03', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+INSERT INTO Players VALUES (118, 'Jonathan', 'VaultKeeper', 29, 03, TO_DATE('12/20/04', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+INSERT INTO Players VALUES (119, 'Charles', 'Ein', 30, 01, TO_DATE('12/20/09', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+INSERT INTO Players VALUES (120, 'Thomas', 'Lumberjack', 32, 02, TO_DATE('12/20/011', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+
 -- --------------------------------------------------------------------
 INSERT INTO Teams VALUES (01, 'Cloud9');
 INSERT INTO Teams VALUES (02, 'TeamSoloMid');
