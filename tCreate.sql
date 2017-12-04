@@ -132,86 +132,92 @@ CONSTRAINT pcIC2 FOREIGN KEY (playerID) REFERENCES Players(playerID)
 -- --------------------------------------------------------------------
 -- POPULATING THE DATABASE INSTANCE
 -- --------------------------------------------------------------------
-INSERT INTO Players VALUES (101, TO_DATE('10/10/12', 'MM/DD/YY'),
-                                  22, TO_DATE('10/07/12', 'MM/DD/YY'));
-INSERT INTO Reservations VALUES (102, TO_DATE('10/14/12', 'MM/DD/YY'),
-                                  22, TO_DATE('10/10/12', 'MM/DD/YY'));
-INSERT INTO Reservations VALUES (103, TO_DATE('11/17/12', 'MM/DD/YY'),
-                                  22, TO_DATE('10/10/12', 'MM/DD/YY'));
-INSERT INTO Reservations VALUES (105, TO_DATE('10/14/12', 'MM/DD/YY'),
-                                  58, TO_DATE('10/13/12', 'MM/DD/YY'));
-INSERT INTO Reservations VALUES (102, TO_DATE('10/20/12', 'MM/DD/YY'),
-                                  31, TO_DATE('10/10/12', 'MM/DD/YY'));
-INSERT INTO Reservations VALUES (103, TO_DATE('11/22/12', 'MM/DD/YY'),
-                                  31, TO_DATE('10/20/12', 'MM/DD/YY'));
-INSERT INTO Reservations VALUES (104, TO_DATE('11/23/12', 'MM/DD/YY'),
-                                  31, TO_DATE('10/20/12', 'MM/DD/YY'));
-INSERT INTO Reservations VALUES (101, TO_DATE('09/05/12', 'MM/DD/YY'),
-                                  64, TO_DATE('08/27/12', 'MM/DD/YY'));
-INSERT INTO Reservations VALUES (102, TO_DATE('11/20/12', 'MM/DD/YY'),
-                                  64, TO_DATE('11/03/12', 'MM/DD/YY'));
-INSERT INTO Reservations VALUES (103, TO_DATE('10/18/12', 'MM/DD/YY'),
-                                  74, TO_DATE('08/04/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (101, 'James', 'JamesCarries', 25, 01, TO_DATE('10/10/12', 'MM/DD/YY'), TO_DATE('10/07/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (102, 'Noah', 'ILoveDogs', 20, 01, TO_DATE('10/14/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (103, 'Janelle', 'Jhinelle', 18, 01, TO_DATE('11/17/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (104, 'Mason', 'StoneMason', 21,  01, TO_DATE('10/14/12', 'MM/DD/YY'), TO_DATE('10/13/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (105, 'Jacob', 'Durt', 22, 01, TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (106, 'William', 'Bill', 19, 02, TO_DATE('11/22/12', 'MM/DD/YY'), TO_DATE('10/20/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (107, 'Ethan', 'Schafey', 26, 02, TO_DATE('11/23/12', 'MM/DD/YY'), TO_DATE('10/20/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (108, 'Alexander', 'TheConqueror', 24, 02, TO_DATE('09/05/12', 'MM/DD/YY'), TO_DATE('08/27/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (109, 'Michael', 'Scotty', 36, 02, TO_DATE('11/20/12', 'MM/DD/YY'), TO_DATE('11/03/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (110, 'Benjamin', 'Benji', 20, 02, TO_DATE('10/18/12', 'MM/DD/YY'), TO_DATE('08/04/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (111, 'Elijah', 'RavenBeggar', 29, 03, TO_DATE('10/10/12', 'MM/DD/YY'), TO_DATE('10/07/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (112, 'Aiden', 'aidaneb04', 30, 03, TO_DATE('10/14/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (113, 'Nolan', 'Destroyer', 31, 03, TO_DATE('11/17/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (114, 'Daniel', 'lionTamer', 26, 03, TO_DATE('10/14/12', 'MM/DD/YY'), TO_DATE('10/13/12', 'MM/DD/YY'));
+INSERT INTO Players VALUES (115, 'Matthew', 'TaxCollector', 35, 03, TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
 -- --------------------------------------------------------------------
-INSERT INTO Teams VALUES (22, 'Dave', 7, 45.0, 85);
-INSERT INTO Sailors VALUES (29, 'Mike', 1, 33.0,NULL);
-INSERT INTO Sailors VALUES (31, 'Mary', 8, 55.0, 85);
-INSERT INTO Sailors VALUES (32, 'Albert', 8, 25.0, 31);
-INSERT INTO Sailors VALUES (58, 'Jim', 10, 35.0, 32);
-INSERT INTO Sailors VALUES (64, 'Jane', 7, 35.0, 22);
-INSERT INTO Sailors VALUES (71, 'Dave', 10, 16.0, 32);
-INSERT INTO Sailors VALUES (74, 'Jane', 9, 40.0, 95);
-INSERT INTO Sailors VALUES (85, 'Art', 3, 25.0, 29);
-INSERT INTO Sailors VALUES (95, 'Jane', 3, 63.0, NULL);
+INSERT INTO Teams VALUES (01, 'Cloud9');
+INSERT INTO Teams VALUES (02, 'TeamSoloMid');
+INSERT INTO Teams VALUES (03, 'EchoFox');
 -- --------------------------------------------------------------------
-INSERT INTO Coaches VALUES (101,'Interlake', 'blue', 350, 30, 95);
-INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
-INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
-INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
-INSERT INTO Boats VALUES (105, 'Weekend Rx', 'white', 500, 43, 31);
-INSERT INTO Boats VALUES (106, 'C#', 'red', 300, 27, 32);
-INSERT INTO Boats VALUES (107, 'Bayside', 'white', 350, 32, 85);
-INSERT INTO Boats VALUES (108, 'C++', 'blue', 100, 12, 95);
+INSERT INTO Coaches VALUES (01, 01, 'Tim', TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
+INSERT INTO Coaches VALUES (02, 01, 'Matt', TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
+INSERT INTO Coaches VALUES (03, 01, 'Marshal', TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
 -- --------------------------------------------------------------------
-
-INSERT INTO Tournaments VALUES (101,'Interlake', 'blue', 350, 30, 95);
-INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
-INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
-INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
-INSERT INTO Boats VALUES (105, 'Weekend Rx', 'white', 500, 43, 31);
-INSERT INTO Boats VALUES (106, 'C#', 'red', 300, 27, 32);
-INSERT INTO Boats VALUES (107, 'Bayside', 'white', 350, 32, 85);
-INSERT INTO Boats VALUES (108, 'C++', 'blue', 100, 12, 95);
+INSERT INTO Tournaments VALUES (101,'Winter_Finals', TO_DATE('03/10/15', 'MM/DD/YY'), 50000);
+INSERT INTO Tournaments VALUES (101,'Spring_Finals', TO_DATE('06/10/15', 'MM/DD/YY'), 40000);
+INSERT INTO Tournaments VALUES (101,'Summer_Finals', TO_DATE('09/10/15', 'MM/DD/YY'), 80000);
+INSERT INTO Tournaments VALUES (101,'Worlds', TO_DATE('12/15/15', 'MM/DD/YY'), 100000);
+INSERT INTO Tournaments VALUES (101,'Winter_Finals', TO_DATE('03/10/16', 'MM/DD/YY'), 60000);
+INSERT INTO Tournaments VALUES (101,'Spring_Finals', TO_DATE('06/10/16', 'MM/DD/YY'), 50000);
+INSERT INTO Tournaments VALUES (101,'Summer_Finals', TO_DATE('09/10/16', 'MM/DD/YY'), 90000);
+INSERT INTO Tournaments VALUES (101,'Worlds', TO_DATE('12/15/16', 'MM/DD/YY'), 110000);
+INSERT INTO Tournaments VALUES (101,'Winter_Finals', TO_DATE('03/10/17', 'MM/DD/YY'), 70000);
+INSERT INTO Tournaments VALUES (101,'Spring_Finals', TO_DATE('06/10/17', 'MM/DD/YY'), 60000);
+INSERT INTO Tournaments VALUES (101,'Summer_Finals', TO_DATE('09/10/17', 'MM/DD/YY'), 100000);
+INSERT INTO Tournaments VALUES (101,'Worlds', TO_DATE('12/15/17', 'MM/DD/YY'), 120000);
 -- --------------------------------------------------------------------
-
-INSERT INTO SocialMedia VALUES (101,'Interlake', 'blue', 350, 30, 95);
-INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
-INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
-INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
-INSERT INTO Boats VALUES (105, 'Weekend Rx', 'white', 500, 43, 31);
-INSERT INTO Boats VALUES (106, 'C#', 'red', 300, 27, 32);
-INSERT INTO Boats VALUES (107, 'Bayside', 'white', 350, 32, 85);
-INSERT INTO Boats VALUES (108, 'C++', 'blue', 100, 12, 95);
+INSERT INTO SocialMedia VALUES (101, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (101, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (101, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (102, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (102, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (102, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (103, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (103, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (103, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (104, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (104, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (104, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (105, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (105, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (105, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (106, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (106, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (106, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (107, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (107, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (107, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (108, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (108, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (108, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (109, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (109, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (109, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (100, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (100, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (100, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (111, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (111, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (111, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (112, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (112, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (112, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (113, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (113, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (113, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (114, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (114, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (114, '', 'Twitter');
+INSERT INTO SocialMedia VALUES (115, '', 'YouTube');
+INSERT INTO SocialMedia VALUES (115, '', 'Twitch');
+INSERT INTO SocialMedia VALUES (115, '', 'Twitter');
 -- --------------------------------------------------------------------
-
 INSERT INTO ParticipateIn VALUES (101,'Interlake', 'blue', 350, 30, 95);
-INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
-INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
-INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
-INSERT INTO Boats VALUES (105, 'Weekend Rx', 'white', 500, 43, 31);
-INSERT INTO Boats VALUES (106, 'C#', 'red', 300, 27, 32);
-INSERT INTO Boats VALUES (107, 'Bayside', 'white', 350, 32, 85);
-INSERT INTO Boats VALUES (108, 'C++', 'blue', 100, 12, 95);
 -- --------------------------------------------------------------------
-
 INSERT INTO Preferred Champs VALUES (101,'Interlake', 'blue', 350, 30, 95);
-INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
-INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
-INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
-INSERT INTO Boats VALUES (105, 'Weekend Rx', 'white', 500, 43, 31);
-INSERT INTO Boats VALUES (106, 'C#', 'red', 300, 27, 32);
-INSERT INTO Boats VALUES (107, 'Bayside', 'white', 350, 32, 85);
-INSERT INTO Boats VALUES (108, 'C++', 'blue', 100, 12, 95);
 -- --------------------------------------------------------------------
 -- Now, if no violations were detected, COMMIT all the commands in this file
 COMMIT;
