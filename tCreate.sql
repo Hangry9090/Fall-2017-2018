@@ -132,7 +132,7 @@ CONSTRAINT pcIC2 FOREIGN KEY (playerID) REFERENCES Players(playerID)
 -- --------------------------------------------------------------------
 -- POPULATING THE DATABASE INSTANCE
 -- --------------------------------------------------------------------
-INSERT INTO Reservations VALUES (101, TO_DATE('10/10/12', 'MM/DD/YY'),
+INSERT INTO Players VALUES (101, TO_DATE('10/10/12', 'MM/DD/YY'),
                                   22, TO_DATE('10/07/12', 'MM/DD/YY'));
 INSERT INTO Reservations VALUES (102, TO_DATE('10/14/12', 'MM/DD/YY'),
                                   22, TO_DATE('10/10/12', 'MM/DD/YY'));
@@ -153,7 +153,7 @@ INSERT INTO Reservations VALUES (102, TO_DATE('11/20/12', 'MM/DD/YY'),
 INSERT INTO Reservations VALUES (103, TO_DATE('10/18/12', 'MM/DD/YY'),
                                   74, TO_DATE('08/04/12', 'MM/DD/YY'));
 -- --------------------------------------------------------------------
-INSERT INTO Sailors VALUES (22, 'Dave', 7, 45.0, 85);
+INSERT INTO Teams VALUES (22, 'Dave', 7, 45.0, 85);
 INSERT INTO Sailors VALUES (29, 'Mike', 1, 33.0,NULL);
 INSERT INTO Sailors VALUES (31, 'Mary', 8, 55.0, 85);
 INSERT INTO Sailors VALUES (32, 'Albert', 8, 25.0, 31);
@@ -164,7 +164,47 @@ INSERT INTO Sailors VALUES (74, 'Jane', 9, 40.0, 95);
 INSERT INTO Sailors VALUES (85, 'Art', 3, 25.0, 29);
 INSERT INTO Sailors VALUES (95, 'Jane', 3, 63.0, NULL);
 -- --------------------------------------------------------------------
-INSERT INTO Boats VALUES (101,'Interlake', 'blue', 350, 30, 95);
+INSERT INTO Coaches VALUES (101,'Interlake', 'blue', 350, 30, 95);
+INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
+INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
+INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
+INSERT INTO Boats VALUES (105, 'Weekend Rx', 'white', 500, 43, 31);
+INSERT INTO Boats VALUES (106, 'C#', 'red', 300, 27, 32);
+INSERT INTO Boats VALUES (107, 'Bayside', 'white', 350, 32, 85);
+INSERT INTO Boats VALUES (108, 'C++', 'blue', 100, 12, 95);
+-- --------------------------------------------------------------------
+
+INSERT INTO Tournaments VALUES (101,'Interlake', 'blue', 350, 30, 95);
+INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
+INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
+INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
+INSERT INTO Boats VALUES (105, 'Weekend Rx', 'white', 500, 43, 31);
+INSERT INTO Boats VALUES (106, 'C#', 'red', 300, 27, 32);
+INSERT INTO Boats VALUES (107, 'Bayside', 'white', 350, 32, 85);
+INSERT INTO Boats VALUES (108, 'C++', 'blue', 100, 12, 95);
+-- --------------------------------------------------------------------
+
+INSERT INTO SocialMedia VALUES (101,'Interlake', 'blue', 350, 30, 95);
+INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
+INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
+INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
+INSERT INTO Boats VALUES (105, 'Weekend Rx', 'white', 500, 43, 31);
+INSERT INTO Boats VALUES (106, 'C#', 'red', 300, 27, 32);
+INSERT INTO Boats VALUES (107, 'Bayside', 'white', 350, 32, 85);
+INSERT INTO Boats VALUES (108, 'C++', 'blue', 100, 12, 95);
+-- --------------------------------------------------------------------
+
+INSERT INTO ParticipateIn VALUES (101,'Interlake', 'blue', 350, 30, 95);
+INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
+INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
+INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
+INSERT INTO Boats VALUES (105, 'Weekend Rx', 'white', 500, 43, 31);
+INSERT INTO Boats VALUES (106, 'C#', 'red', 300, 27, 32);
+INSERT INTO Boats VALUES (107, 'Bayside', 'white', 350, 32, 85);
+INSERT INTO Boats VALUES (108, 'C++', 'blue', 100, 12, 95);
+-- --------------------------------------------------------------------
+
+INSERT INTO Preferred Champs VALUES (101,'Interlake', 'blue', 350, 30, 95);
 INSERT INTO Boats VALUES (102, 'Interlake', 'red', 275, 23, 22);
 INSERT INTO Boats VALUES (103, 'Clipper', 'green', 160, 15, 85);
 INSERT INTO Boats VALUES (104, 'Marine', 'red', 195, 24, 22);
