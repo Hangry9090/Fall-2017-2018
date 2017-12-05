@@ -148,56 +148,48 @@ INSERT INTO Tournaments VALUES (110,'Spring_Finals', TO_DATE('06/10/17', 'MM/DD/
 INSERT INTO Tournaments VALUES (111,'Summer_Finals', TO_DATE('09/10/17', 'MM/DD/YY'), 100000);
 INSERT INTO Tournaments VALUES (112,'Worlds', TO_DATE('12/15/17', 'MM/DD/YY'), 120000);
 -- --------------------------------------------------------------------
-INSERT INTO SocialMedia VALUES (101, 'C9James', 'YouTube');
+INSERT INTO SocialMedia VALUES (101, 'C9James', 'Snapchat');
 INSERT INTO SocialMedia VALUES (101, 'JamesStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (101, '@C9James', 'Twitter');
 INSERT INTO SocialMedia VALUES (102, 'C9Noah', 'YouTube');
+INSERT INTO SocialMedia VALUES (102, 'C9DogLover', 'Tumblr');
+INSERT INTO SocialMedia VALUES (102, 'C9DogPicsHere', 'Snapchat');
 INSERT INTO SocialMedia VALUES (102, 'NoahStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (102, '@C9Noah', 'Twitter');
 INSERT INTO SocialMedia VALUES (103, 'C9Janelle', 'YouTube');
-INSERT INTO SocialMedia VALUES (103, 'JanelleStream', 'Twitch');
+INSERT INTO SocialMedia VALUES (103, 'JanelleSnaps', 'Snapchat');
 INSERT INTO SocialMedia VALUES (103, '@C9Janelle', 'Twitter');
 INSERT INTO SocialMedia VALUES (104, 'C9Mason', 'YouTube');
-INSERT INTO SocialMedia VALUES (104, 'MasonStream', 'Twitch');
-INSERT INTO SocialMedia VALUES (104, '@C9Mason', 'Twitter');
 INSERT INTO SocialMedia VALUES (105, 'C9Jacob', 'YouTube');
 INSERT INTO SocialMedia VALUES (105, 'JacobStream', 'Twitch');
-INSERT INTO SocialMedia VALUES (105, '@C9Jacob', 'Twitter');
-INSERT INTO SocialMedia VALUES (106, 'TMSWilliam', 'YouTube');
+INSERT INTO SocialMedia VALUES (106, 'TMSWilliam', 'Facebook');
 INSERT INTO SocialMedia VALUES (106, 'WilliamStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (106, '@TSMWIlliam', 'Twitter');
-INSERT INTO SocialMedia VALUES (107, 'TSMEthan', 'YouTube');
+INSERT INTO SocialMedia VALUES (107, 'TSMEthan', 'Facebook');
 INSERT INTO SocialMedia VALUES (107, 'EthanStream', 'Twitch');
-INSERT INTO SocialMedia VALUES (107, '@TSMEthan', 'Twitter');
 INSERT INTO SocialMedia VALUES (108, 'TSMAlexander', 'YouTube');
 INSERT INTO SocialMedia VALUES (108, 'AlexanderStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (108, '@TSMAlexander', 'Twitter');
 INSERT INTO SocialMedia VALUES (109, 'TSMMichael', 'YouTube');
-INSERT INTO SocialMedia VALUES (109, 'MichaelStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (109, '@TSMMichael', 'Twitter');
-INSERT INTO SocialMedia VALUES (110, 'TSMBenjamin', 'YouTube');
+INSERT INTO SocialMedia VALUES (110, 'TSMBenjamin', 'Google+');
 INSERT INTO SocialMedia VALUES (110, 'BenjaminStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (110, '@TSMBenjamin', 'Twitter');
 INSERT INTO SocialMedia VALUES (111, 'ECFElijah', 'YouTube');
 INSERT INTO SocialMedia VALUES (111, 'ElijahStream', 'Twitch');
-INSERT INTO SocialMedia VALUES (111, '@ECFElijah', 'Twitter');
 INSERT INTO SocialMedia VALUES (112, 'ECFAiden', 'YouTube');
 INSERT INTO SocialMedia VALUES (112, 'AidenStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (112, '@ECFAidenStream', 'Twitter');
 INSERT INTO SocialMedia VALUES (113, 'ECFNolan', 'YouTube');
-INSERT INTO SocialMedia VALUES (113, 'NolanStream', 'Twitch');
-INSERT INTO SocialMedia VALUES (113, '@ECFNolan', 'Twitter');
 INSERT INTO SocialMedia VALUES (114, 'ECFDaniel', 'YouTube');
 INSERT INTO SocialMedia VALUES (114, 'DanielStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (114, '@ECFDaniel', 'Twitter');
 INSERT INTO SocialMedia VALUES (115, 'ECFMatt', 'YouTube');
 INSERT INTO SocialMedia VALUES (115, 'MattStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (115, '@ECFMatt', 'Twitter');
-INSERT INTO SocialMedia VALUES (116, 'C9Landon', 'YouTube');
 INSERT INTO SocialMedia VALUES (116, 'LandonStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (116, '@C9Landon', 'Twitter');
 INSERT INTO SocialMedia VALUES (117, 'TSMGrayson', 'YouTube');
-INSERT INTO SocialMedia VALUES (117, 'GraysonStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (117, '@TSMGrayson', 'Twitter');
 INSERT INTO SocialMedia VALUES (118, 'ECFJonathan', 'YouTube');
 INSERT INTO SocialMedia VALUES (118, 'JonathanStream', 'Twitch');
@@ -269,6 +261,7 @@ INSERT INTO PreferredChamps VALUES (115,'KhaZhix');
 -- Now, if no violations were detected, COMMIT all the commands in this file
 COMMIT;
 
+-- XXXXXX This gets duplicates
 --SQL QUERIES
 --Q1-SELF JOIN
 --Find pairs of players where one is at least age 21 and the other has the same age as the first player.
@@ -289,20 +282,19 @@ WHERE p.age > 21
 UNION
 SELECT p.playerID, p.age, p.iGN
 FROM Players p
-WHERE p.iGN LIKE "%a%";
+WHERE p.iGN LIKE '%a%';
 --
 --Q4-RANK
 --Find the rank of age 18 within Players.
 SELECT RANK(18) WITHIN GROUP
 (ORDER BY age DESC) "Rank of 18"
-FROM Players p
+FROM Players p;
 --
 --Q5-TOP N
 --Find the tournament ID, name, and prize pool of the 2 highest prize pool tournaments.
-SELECT t.tournamentID, t.name, t.prizePool
-FROM (SELECT * FROM Tournaments T ORDER BY t.prizePool DESC)
-WHERE ROWNUM < 3
-ORDER BY t.prizePool
+SELECT *
+FROM (SELECT t.tournamentID, t.name, t.prizePool FROM Tournaments t ORDER BY t.prizePool DESC)
+WHERE ROWNUM < 3;
 --
 --Q6-GROUP BY, HAVING, COUNT
 --Find the player ID, player IGN, and name of players with more than 2 social media accounts. Sort by playerID.
@@ -311,8 +303,9 @@ FROM Players p, SocialMedia sm
 WHERE p.playerID = sm.playerID
 GROUP BY p.playerID, p.iGN, p.name
 HAVING COUNT(*) > 2
-ORDER BY p.playerID
+ORDER BY p.playerID;
 --
+-- THIS QUERY NEEDS HELP!!!!! CURRENTLY SELECTING EVERYONE
 --Q7-DIVISION, CORRELATED SUBQUERY, NON-CORRELATED SUBQUERY
 --For every player who participated in every tournament on Cloud 9: Find the player ID and IGN.
 SELECT p.playerID, p.iGN
@@ -323,31 +316,31 @@ WHERE NOT EXISTS(
 		 WHERE t.teamName = 'Cloud 9')
 		MINUS
 		(SELECT pa.teamID
-		 FROM ParticipateIn pa, Tournaments to
-		 WHERE p.startDate < to.date AND (p.endDate > to.date OR p.endDate IS NULL) 
+		 FROM ParticipateIn pa, Tournaments tm, Teams t
+		 WHERE p.startDate < tm.tDate AND (p.endDate > tm.tDate OR p.endDate IS NULL) 
 					     AND t.teamID = pa.teamID)
 		)
 ORDER BY p.iGN;
---
+--Currently Selecting Nothing
 --Q8-RELATE 4 OR MORE RELATIONS
---Find players and coaches who have won Worlds
+--Find players who have won worlds and who they were coached by at that time
 SELECT p.iGN, c.name
-FROM Player p, Coach c, ParticipateIn pa, Tournament to
+FROM Players p, Coaches c, ParticipateIn pa, Tournaments tm
 WHERE (p.startDate < c.endDate OR c.endDate IS NULL) AND
       (c.startDate < p.endDate OR p.endDate IS NULL) AND
       c.teamID = p.teamID                            AND
-      (to.date < p.endDate OR p.endDate IS NULL)     AND
-      (to.date < c.endDate OR c.endDate IS NULL)     AND
-      to.date > p.startDate                          AND
-      to.date > c.startDate     		     AND
-      to.tournamentID = pa.tournamentID 	     AND
+      (tm.tDate < p.endDate OR p.endDate IS NULL)     AND
+      (tm.tDate < c.endDate OR c.endDate IS NULL)     AND
+      tm.tDate > p.startDate                          AND
+      tm.tDate > c.startDate     		     AND
+      tm.tournamentID = pa.tournamentID 	     AND
       pa.result = 1
 ORDER BY p.iGN;
 --
 --Q9-OUTER JOIN
---List all teams and show those who participated
-SELECT p.teamID 
-FROM ParticipateIn pa
-LEFT OUTER JOIN Tournaments to t.name on t.tournamentID = p.tournamentID
+--List all players and if they have a YouTube account then display it 
+SELECT p.PlayerID, p.iGN, s.platform, s.handle
+FROM Players p
+LEFT OUTER JOIN SocialMedia s on s.platform = 'YouTube' AND p.PlayerID = s.playerID;
 --
 
