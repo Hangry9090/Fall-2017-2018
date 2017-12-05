@@ -52,7 +52,7 @@ WHERE NOT EXISTS(
 		 WHERE t.teamName = 'Cloud 9')
 		MINUS
 		(SELECT pa.teamID
-		 FROM ParticipatesIn pa, Tournaments to
+		 FROM ParticipateIn pa, Tournaments to
 		 WHERE p.startDate < to.date AND (p.endDate > to.date OR p.endDate IS NULL) 
 					     AND t.teamID = pa.teamID)
 		)
@@ -61,7 +61,7 @@ ORDER BY p.iGN;
 --Q8-RELATE 4 OR MORE RELATIONS
 --Find players and coaches who have won Worlds
 SELECT p.iGN, c.name
-FROM Player p, Coach c, ParticipatesIn pa, Tournament to
+FROM Player p, Coach c, ParticipateIn pa, Tournament to
 WHERE (p.startDate < c.endDate OR c.endDate IS NULL) AND
       (c.startDate < p.endDate OR p.endDate IS NULL) AND
       c.teamID = p.teamID                            AND
@@ -76,6 +76,6 @@ ORDER BY p.iGN;
 --Q9-OUTER JOIN
 --List all teams and show those who participated
 SELECT p.teamID 
-FROM ParticipatesIn pa
+FROM ParticipateIn pa
 LEFT OUTER JOIN Tournaments to t.name on t.tournamentID = p.tournamentID
 --
