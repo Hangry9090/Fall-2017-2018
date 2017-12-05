@@ -265,6 +265,15 @@ INSERT INTO PreferredChamps VALUES (115,'KhaZhix');
 SET FEEDBACK ON
 COMMIT;
 
+--Print the database
+SELECT * FROM Teams;
+SELECT * FROM Players;
+SELECT * FROM Coaches;
+SELECT * FROM Tournaments;
+SELECT * FROM SocialMedia;
+SELECT * FROM ParticipateIn;
+SELECT * FROM PrefferedChamps;
+
 -- XXXXXX This gets duplicates
 --SQL QUERIES
 --Q1-SELF JOIN
@@ -347,4 +356,6 @@ SELECT p.PlayerID, p.iGN, s.platform, s.handle
 FROM Players p
 LEFT OUTER JOIN SocialMedia s on s.platform = 'YouTube' AND p.PlayerID = s.playerID;
 --
+/*Add insert/update/delete statements to test ICs
+COMMIT;*/
 SPOOL OFF
