@@ -145,9 +145,9 @@ INSERT INTO Players VALUES (118, 'Jonathan', 'VaultKeeper', 29, 03, TO_DATE('12/
 INSERT INTO Players VALUES (119, 'Charles', 'Ein', 30, 01, TO_DATE('12/20/09', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
 INSERT INTO Players VALUES (120, 'Thomas', 'Lumberjack', 32, 02, TO_DATE('12/20/011', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
 -- ---------------------------------------------------------------------
-INSERT INTO Coaches VALUES (01, 01, 'Tim', TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
-INSERT INTO Coaches VALUES (02, 01, 'Matt', TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
-INSERT INTO Coaches VALUES (03, 01, 'Marshal', TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
+INSERT INTO Coaches VALUES (01, 01, 'Tim', TO_DATE('10/20/12', 'MM/DD/YY'), Null);
+INSERT INTO Coaches VALUES (02, 02, 'Matt', TO_DATE('10/20/12', 'MM/DD/YY'), Null);
+INSERT INTO Coaches VALUES (03, 03, 'Marshal', TO_DATE('10/20/12', 'MM/DD/YY'), null);
 -- --------------------------------------------------------------------
 INSERT INTO Tournaments VALUES (101,'Winter_Finals', TO_DATE('03/10/15', 'MM/DD/YY'), 50000);
 INSERT INTO Tournaments VALUES (102,'Spring_Finals', TO_DATE('06/10/15', 'MM/DD/YY'), 40000);
