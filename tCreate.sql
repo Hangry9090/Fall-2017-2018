@@ -313,7 +313,7 @@ FROM Players p
 WHERE NOT EXISTS(
 		(SELECT t.teamID
 		 FROM Teams t
-		 WHERE t.teamName = 'Cloud 9')
+		 WHERE t.teamName = 'Cloud9')
 		MINUS
 		(SELECT pa.teamID
 		 FROM ParticipateIn pa, Tournaments tm, Teams t
