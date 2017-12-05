@@ -8,6 +8,17 @@ Nolan Gustafson
 Matthew Tetreau
 Tim VanDyke
 */
+-- DROPPING ALL TABLES
+
+DROP TABLE Players CASCADE CONSTRAINTS;
+DROP TABLE Teams CASCADE CONSTRAINTS;
+DROP TABLE Coaches CASCADE CONSTRAINTS;
+DROP TABLE Tournaments CASCADE CONSTRAINTS;
+DROP TABLE SocialMedia CASCADE CONSTRAINTS;
+DROP TABLE ParticipateIn CASCADE CONSTRAINTS;
+DROP TABLE PreferredChamps CASCADE CONSTRAINTS;
+
+
 -- CREATING THE TABLES
 -- -------------------------------------------------------------------
 CREATE TABLE  Teams
