@@ -1,3 +1,5 @@
+SPOOL project.out
+SET ECHO ON
 /*
 CIS 353
  - Database Design Project 
@@ -103,6 +105,7 @@ CONSTRAINT pcIC2 FOREIGN KEY (playerID) REFERENCES Players(playerID)
             ON DELETE CASCADE
             DEFERRABLE INITIALLY DEFERRED
 );
+SET FEEDBACK OFF
 -- --------------------------------------------------------------------
 -- POPULATING THE DATABASE INSTANCE
 -- --------------------------------------------------------------------
@@ -259,6 +262,7 @@ INSERT INTO PreferredChamps VALUES (115,'Brand');
 INSERT INTO PreferredChamps VALUES (115,'KhaZhix');
 -- --------------------------------------------------------------------
 -- Now, if no violations were detected, COMMIT all the commands in this file
+SET FEEDBACK ON
 COMMIT;
 
 -- XXXXXX This gets duplicates
@@ -343,4 +347,4 @@ SELECT p.PlayerID, p.iGN, s.platform, s.handle
 FROM Players p
 LEFT OUTER JOIN SocialMedia s on s.platform = 'YouTube' AND p.PlayerID = s.playerID;
 --
-
+SPOOL OFF
