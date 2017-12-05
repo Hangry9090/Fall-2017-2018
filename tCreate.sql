@@ -367,6 +367,26 @@ SELECT p.PlayerID, p.iGN, s.platform, s.handle
 FROM Players p
 LEFT OUTER JOIN SocialMedia s on s.platform = 'YouTube' AND p.PlayerID = s.playerID;
 --
-/*Add insert/update/delete statements to test ICs
-COMMIT;*/
+
+
+/*Add insert/update/delete statements to test ICs*/
+
+SELECT * FROM Players;
+
+/* TESTING PLYRIC1 CONSTRAINT */
+INSERT INTO Players VALUES (NULL, 'Testing', 'TestingName', 23, 01, TO_DATE('11/10/12', 'MM/DD/YY'), NULL);
+
+/* TESTING PLYRIC2 CONSTRAINT */
+INSERT INTO Players VALUES (404, 'TestingTwo', 'TestingNameTwo', 16, 01, TO_DATE('11/10/12', 'MM/DD/YY'), NULL);
+
+/* TESTING PLYRIC3 CONSTRAINT */
+INSERT INTO Players VALUES (404, 'TestingTwo', 'TestingNameTwo', 23, NULL, TO_DATE('11/10/12', 'MM/DD/YY'), NULL);
+
+/* TESTING SMIC3 */
+INSERT INTO Players VALUES (404, 'TestingName', 'TestingNameThree', 23, 01, TO_DATE('11/10/12', 'MM/DD/YY'), NULL);
+INSERT INTO SocialMedia VALUES (404, 'TestingThree', 'Twitter');
+
+
+
+COMMIT;
 SPOOL OFF
