@@ -7,6 +7,14 @@ Matthew Tetreau
 Tim VanDyke
 */
 -- CREATING THE TABLES
+-- -------------------------------------------------------------------
+CREATE TABLE  Teams
+(
+teamID      INTEGER,
+teamName    CHAR(50)  NOT NULL,
+-- tIC1: Team Ids are unique.
+CONSTRAINT tIC1 PRIMARY KEY (teamID)
+);
 -- --------------------------------------------------------------------
 CREATE TABLE  Players
 (
@@ -17,28 +25,14 @@ age         NUMBER(4,1) NOT NULL,
 teamID      INTEGER     NOT NULL,   
 startDate   DATE        NOT NULL,
 endDate     DATE,       /*null means they are still playing*/
-    
-    
 -- plyrIC1: Player Ids are unique
 CONSTRAINT plyrIC1 PRIMARY KEY (playerID),
 -- plyrIC2: Players must be 17 or older
 CONSTRAINT plyrIC2 CHECK (age >= 17),
 -- plyrIC3: players must be on a team
-CONSTRAINT plyrIC3 FOREIGN KEY (teamID) REFERENCES Team(teamID)
+CONSTRAINT plyrIC3 FOREIGN KEY (teamID) REFERENCES Teams(teamID)
             ON DELETE CASCADE
-            DEFERRABLE INITIALLY DEFERRED,
-    
-);
--- -------------------------------------------------------------------
-CREATE TABLE  Teams
-(
-teamID      INTEGER,
-teamName    CHAR(50)  NOT NULL,
-
-    
--- tIC1: Team Ids are unique.
-CONSTRAINT tIC1 PRIMARY KEY (teamID),
-
+            DEFERRABLE INITIALLY DEFERRED
 );
 -- --------------------------------------------------------------------
 CREATE TABLE  Coaches
@@ -48,15 +42,12 @@ teamID      INTEGER   NOT NULL,
 name        CHAR(50)  NOT NULL,
 startDate   DATE        NOT NULL,
 endDate     DATE,       /*null means they are still playing*/
-    
-    
 -- cIC1: Coach IDs are unique.
 CONSTRAINT cIC1 PRIMARY KEY (coachID),
 -- cIC2: a coach's team must exist
-CONSTRAINT cIC2 FOREIGN KEY (teamID) REFERENCES Team(teamID)
+CONSTRAINT cIC2 FOREIGN KEY (teamID) REFERENCES Teams(teamID)
             ON DELETE SET NULL
-            DEFERRABLE INITIALLY DEFERRED,
-    
+            DEFERRABLE INITIALLY DEFERRED
 );
 -- ------------------------------------------------------------------
 CREATE TABLE  Tournaments
@@ -65,22 +56,15 @@ tournamentID   INTEGER,
 name           CHAR(50)  NOT NULL,
 tDate          DATE      NOT NULL,    
 prizePool      INTEGER   NOT NULL,
-
-    
-    
 -- trnIC1: tournament IDs are unique
-CONSTRAINT trnIC1 PRIMARY KEY (tournamentID),
-
+CONSTRAINT trnIC1 PRIMARY KEY (tournamentID)
 );
-
 -- ------------------------------------------------------------------
 CREATE TABLE  SocialMedia
 (
 playerID       INTEGER, 
 handle         CHAR(50)  NOT NULL,
-platform       CHAR(50)  NOT NULL,
-
-    
+platform       CHAR(50)  NOT NULL,  
 -- smIC1: player with social media have to have a handle
 CONSTRAINT smIC1 PRIMARY KEY (playerID, handle),
 -- smIC2: a handle must belong to a player that exists
@@ -88,10 +72,7 @@ CONSTRAINT smIC2 FOREIGN KEY (playerID) REFERENCES Players(playerID)
             ON DELETE CASCADE
             DEFERRABLE INITIALLY DEFERRED,
 -- smIC3: handles for Twitter accounts must start with a '@'
-CONSTRAINT smIC3 CHECK (NOT(platform = 'Twitter' and handle != '@%')),
-    
-    
-                    /** Check if smIC3 looks correct pls**/
+CONSTRAINT smIC3 CHECK (NOT(platform = 'Twitter' and handle = '@%'))
 );
 -- ------------------------------------------------------------------
 CREATE TABLE  ParticipateIn
@@ -99,8 +80,6 @@ CREATE TABLE  ParticipateIn
 tournamentID   INTEGER, 
 teamID         INTEGER,
 result         INTEGER  NOT NULL,
-
-    
 -- prtIC1: teams participate in any given tournament only once
 CONSTRAINT prtIC1 PRIMARY KEY (tournamentID, teamID),
 -- prtIC2: the tournament must exist
@@ -108,56 +87,50 @@ CONSTRAINT prtIC2 FOREIGN KEY (tournamentID) REFERENCES Tournaments(tournamentID
             ON DELETE CASCADE
             DEFERRABLE INITIALLY DEFERRED,
 -- prtIC3: the team must exist
-CONSTRAINT prtIC3 FOREIGN KEY (teamID) REFERENCES Players(teamID)
+CONSTRAINT prtIC3 FOREIGN KEY (teamID) REFERENCES Teams(teamID)
             ON DELETE CASCADE
-            DEFERRABLE INITIALLY DEFERRED,
-     
+            DEFERRABLE INITIALLY DEFERRED
 );
 -- ------------------------------------------------------------------
 CREATE TABLE  PreferredChamps
 (
 playerID          INTEGER, 
-champName         INTEGER,
-
-     
+champName         CHAR(50),
 -- pcIC1: players can have multiple preferred champs
 CONSTRAINT pcIC1 PRIMARY KEY (playerID, champName),
 -- pcIC2: the player must actually exist
 CONSTRAINT pcIC2 FOREIGN KEY (playerID) REFERENCES Players(playerID)
             ON DELETE CASCADE
-            DEFERRABLE INITIALLY DEFERRED,
-    
+            DEFERRABLE INITIALLY DEFERRED
 );
-
 -- --------------------------------------------------------------------
 -- POPULATING THE DATABASE INSTANCE
--- --------------------------------------------------------------------
-INSERT INTO Players VALUES (101, 'James', 'JamesCarries', 25, 01, TO_DATE('12/10/12', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (102, 'Noah', 'ILoveDogs', 20, 01, TO_DATE('12/24/13', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (103, 'Janelle', 'Jhinelle', 18, 01, TO_DATE('12/21/15', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (104, 'Mason', 'StoneMason', 21,  01, TO_DATE('12/21/15', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (105, 'Jacob', 'Durt', 22, 01, TO_DATE('12/20/14', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (106, 'William', 'Bill', 25, 02, TO_DATE('12/21/15', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (107, 'Ethan', 'Schafey', 26, 02, TO_DATE('12/23/11', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (108, 'Alexander', 'TheConqueror', 24, 02, TO_DATE('12/05/10', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (109, 'Michael', 'Scotty', 36, 02, TO_DATE('12/20/11', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (110, 'Benjamin', 'Benji', 20, 02, TO_DATE('12/21/15', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (111, 'Elijah', 'RavenBeggar', 29, 03, TO_DATE('12/10/10', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (112, 'Aiden', 'aidaneb04', 30, 03, TO_DATE('12/14/05', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (113, 'Nolan', 'Destroyer', 31, 03, TO_DATE('12/17/03', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (114, 'Daniel', 'lionTamer', 26, 03, TO_DATE('12/21/15', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (115, 'Matt', 'TaxCollector', 35, 03, TO_DATE('12/20/07', 'MM/DD/YY'), );
-INSERT INTO Players VALUES (116, 'Landon', 'MountainMover', 40, 01, TO_DATE('12/20/07', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
-INSERT INTO Players VALUES (117, 'Grayson', 'WiseMan', 36, 02, TO_DATE('12/20/03', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
-INSERT INTO Players VALUES (118, 'Jonathan', 'VaultKeeper', 29, 03, TO_DATE('12/20/04', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
-INSERT INTO Players VALUES (119, 'Charles', 'Ein', 30, 01, TO_DATE('12/20/09', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
-INSERT INTO Players VALUES (120, 'Thomas', 'Lumberjack', 32, 02, TO_DATE('12/20/011', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
-
 -- --------------------------------------------------------------------
 INSERT INTO Teams VALUES (01, 'Cloud9');
 INSERT INTO Teams VALUES (02, 'TeamSoloMid');
 INSERT INTO Teams VALUES (03, 'EchoFox');
 -- --------------------------------------------------------------------
+INSERT INTO Players VALUES (101, 'James', 'JamesCarries', 25, 01, TO_DATE('12/10/12', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (102, 'Noah', 'ILoveDogs', 20, 01, TO_DATE('12/24/13', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (103, 'Janelle', 'Jhinelle', 18, 01, TO_DATE('12/21/15', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (104, 'Mason', 'StoneMason', 21,  01, TO_DATE('12/21/15', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (105, 'Jacob', 'Durt', 22, 01, TO_DATE('12/20/14', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (106, 'William', 'Bill', 25, 02, TO_DATE('12/21/15', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (107, 'Ethan', 'Schafey', 26, 02, TO_DATE('12/23/11', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (108, 'Alexander', 'TheConqueror', 24, 02, TO_DATE('12/05/10', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (109, 'Michael', 'Scotty', 36, 02, TO_DATE('12/20/11', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (110, 'Benjamin', 'Benji', 20, 02, TO_DATE('12/21/15', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (111, 'Elijah', 'RavenBeggar', 29, 03, TO_DATE('12/10/10', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (112, 'Aiden', 'aidaneb04', 30, 03, TO_DATE('12/14/05', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (113, 'Nolan', 'Destroyer', 31, 03, TO_DATE('12/17/03', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (114, 'Daniel', 'lionTamer', 26, 03, TO_DATE('12/21/15', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (115, 'Matt', 'TaxCollector', 35, 03, TO_DATE('12/20/07', 'MM/DD/YY'), NULL);
+INSERT INTO Players VALUES (116, 'Landon', 'MountainMover', 40, 01, TO_DATE('12/20/07', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+INSERT INTO Players VALUES (117, 'Grayson', 'WiseMan', 36, 02, TO_DATE('12/20/03', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+INSERT INTO Players VALUES (118, 'Jonathan', 'VaultKeeper', 29, 03, TO_DATE('12/20/04', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+INSERT INTO Players VALUES (119, 'Charles', 'Ein', 30, 01, TO_DATE('12/20/09', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+INSERT INTO Players VALUES (120, 'Thomas', 'Lumberjack', 32, 02, TO_DATE('12/20/011', 'MM/DD/YY'), TO_DATE('12/20/15', 'MM/DD/YY'));
+-- ---------------------------------------------------------------------
 INSERT INTO Coaches VALUES (01, 01, 'Tim', TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
 INSERT INTO Coaches VALUES (02, 01, 'Matt', TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
 INSERT INTO Coaches VALUES (03, 01, 'Marshal', TO_DATE('10/20/12', 'MM/DD/YY'), TO_DATE('10/10/12', 'MM/DD/YY'));
@@ -236,62 +209,62 @@ INSERT INTO SocialMedia VALUES (120, 'TSMThomas', 'YouTube');
 INSERT INTO SocialMedia VALUES (120, 'ThomasStream', 'Twitch');
 INSERT INTO SocialMedia VALUES (120, '@TSMThomas', 'Twitter');
 -- --------------------------------------------------------------------
-INSERT INTO ParticipateIn VALUES (101 ,101, 1);
-INSERT INTO ParticipateIn VALUES (101 ,102, 0);
-INSERT INTO ParticipateIn VALUES (102 ,103, 1);
-INSERT INTO ParticipateIn VALUES (102 ,101, 0);
-INSERT INTO ParticipateIn VALUES (103 ,102, 1);
-INSERT INTO ParticipateIn VALUES (103 ,103, 0);
-INSERT INTO ParticipateIn VALUES (104 ,101, 1);
-INSERT INTO ParticipateIn VALUES (104 ,102, 0);
-INSERT INTO ParticipateIn VALUES (104 ,103, 0);
-INSERT INTO ParticipateIn VALUES (105 ,103, 1);
-INSERT INTO ParticipateIn VALUES (105 ,101, 0);
-INSERT INTO ParticipateIn VALUES (106 ,102, 1);
-INSERT INTO ParticipateIn VALUES (106 ,103, 0);
-INSERT INTO ParticipateIn VALUES (107 ,101, 1);
-INSERT INTO ParticipateIn VALUES (107 ,102, 0);
-INSERT INTO ParticipateIn VALUES (108 ,101, 0);
-INSERT INTO ParticipateIn VALUES (108 ,102, 1);
-INSERT INTO ParticipateIn VALUES (108 ,103, 0);
-INSERT INTO ParticipateIn VALUES (109 ,102, 1);
-INSERT INTO ParticipateIn VALUES (109 ,103, 0);
-INSERT INTO ParticipateIn VALUES (110 ,101, 1);
-INSERT INTO ParticipateIn VALUES (110 ,102, 0);
-INSERT INTO ParticipateIn VALUES (111 ,103, 1);
-INSERT INTO ParticipateIn VALUES (111 ,101, 0);
-INSERT INTO ParticipateIn VALUES (112 ,101, 1);
-INSERT INTO ParticipateIn VALUES (112 ,102, 0);
-INSERT INTO ParticipateIn VALUES (112 ,103, 0);
+INSERT INTO ParticipateIn VALUES (101 ,01, 1);
+INSERT INTO ParticipateIn VALUES (101 ,02, 2);
+INSERT INTO ParticipateIn VALUES (102 ,03, 1);
+INSERT INTO ParticipateIn VALUES (102 ,01, 2);
+INSERT INTO ParticipateIn VALUES (103 ,02, 1);
+INSERT INTO ParticipateIn VALUES (103 ,03, 2);
+INSERT INTO ParticipateIn VALUES (104 ,01, 1);
+INSERT INTO ParticipateIn VALUES (104 ,02, 2);
+INSERT INTO ParticipateIn VALUES (104 ,03, 3);
+INSERT INTO ParticipateIn VALUES (105 ,03, 2);
+INSERT INTO ParticipateIn VALUES (105 ,01, 1);
+INSERT INTO ParticipateIn VALUES (106 ,02, 2);
+INSERT INTO ParticipateIn VALUES (106 ,03, 1);
+INSERT INTO ParticipateIn VALUES (107 ,01, 2);
+INSERT INTO ParticipateIn VALUES (107 ,02, 1);
+INSERT INTO ParticipateIn VALUES (108 ,01, 2);
+INSERT INTO ParticipateIn VALUES (108 ,02, 1);
+INSERT INTO ParticipateIn VALUES (108 ,03, 3);
+INSERT INTO ParticipateIn VALUES (109 ,02, 1);
+INSERT INTO ParticipateIn VALUES (109 ,03, 2);
+INSERT INTO ParticipateIn VALUES (110 ,01, 1);
+INSERT INTO ParticipateIn VALUES (110 ,02, 2);
+INSERT INTO ParticipateIn VALUES (111 ,03, 1);
+INSERT INTO ParticipateIn VALUES (111 ,01, 2);
+INSERT INTO ParticipateIn VALUES (112 ,01, 1);
+INSERT INTO ParticipateIn VALUES (112 ,02, 2);
+INSERT INTO ParticipateIn VALUES (112 ,03, 3);
 -- --------------------------------------------------------------------
-INSERT INTO Preferred Champs VALUES (101,'Annie');
-INSERT INTO Preferred Champs VALUES (101,'Aatrox');
-INSERT INTO Preferred Champs VALUES (102,'Hecarim');
-INSERT INTO Preferred Champs VALUES (102,'Lux');
-INSERT INTO Preferred Champs VALUES (102,'Syndra');
-INSERT INTO Preferred Champs VALUES (103,'Poppy');
-INSERT INTO Preferred Champs VALUES (104,'Riven');
-INSERT INTO Preferred Champs VALUES (104,'Garen');
-INSERT INTO Preferred Champs VALUES (105,'Zyra');
-INSERT INTO Preferred Champs VALUES (105,'Bard');
-INSERT INTO Preferred Champs VALUES (106,'Brom,');
-INSERT INTO Preferred Champs VALUES (107,'Malzahar');
-INSERT INTO Preferred Champs VALUES (107,'Caitlyn');
-INSERT INTO Preferred Champs VALUES (107,'Draven');
-INSERT INTO Preferred Champs VALUES (108,'Nocturn');
-INSERT INTO Preferred Champs VALUES (109,'Nunu');
-INSERT INTO Preferred Champs VALUES (110,'Singed');
-INSERT INTO Preferred Champs VALUES (110,'Malphite');
-INSERT INTO Preferred Champs VALUES (110,'Ashe');
-INSERT INTO Preferred Champs VALUES (110,'Bard');
-INSERT INTO Preferred Champs VALUES (111,'Sona');
-INSERT INTO Preferred Champs VALUES (112,'Soraka');
-INSERT INTO Preferred Champs VALUES (112,'Janna');
-INSERT INTO Preferred Champs VALUES (113,'Leona');
-INSERT INTO Preferred Champs VALUES (114,'Morgana');
-INSERT INTO Preferred Champs VALUES (114,'Kindred');
-INSERT INTO Preferred Champs VALUES (115,'Brand');
-INSERT INTO Preferred Champs VALUES (115,'KhaZhix');
+INSERT INTO PreferredChamps VALUES (101,'Annie');
+INSERT INTO PreferredChamps VALUES (101,'Aatrox');
+INSERT INTO PreferredChamps VALUES (102,'Hecarim');
+INSERT INTO PreferredChamps VALUES (102,'Lux');
+INSERT INTO PreferredChamps VALUES (102,'Syndra');
+INSERT INTO PreferredChamps VALUES (103,'Poppy');
+INSERT INTO PreferredChamps VALUES (104,'Riven');
+INSERT INTO PreferredChamps VALUES (104,'Garen');
+INSERT INTO PreferredChamps VALUES (105,'Zyra');
+INSERT INTO PreferredChamps VALUES (105,'Bard');
+INSERT INTO PreferredChamps VALUES (106,'Brom,');
+INSERT INTO PreferredChamps VALUES (107,'Malzahar');
+INSERT INTO PreferredChamps VALUES (107,'Caitlyn');
+INSERT INTO PreferredChamps VALUES (107,'Draven');
+INSERT INTO PreferredChamps VALUES (108,'Nocturn');
+INSERT INTO PreferredChamps VALUES (109,'Nunu');
+INSERT INTO PreferredChamps VALUES (110,'Singed');
+INSERT INTO PreferredChamps VALUES (110,'Malphite');
+INSERT INTO PreferredChamps VALUES (110,'Ashe');
+INSERT INTO PreferredChamps VALUES (110,'Bard');
+INSERT INTO PreferredChamps VALUES (111,'Sona');
+INSERT INTO PreferredChamps VALUES (112,'Soraka');
+INSERT INTO PreferredChamps VALUES (112,'Janna');
+INSERT INTO PreferredChamps VALUES (113,'Leona');
+INSERT INTO PreferredChamps VALUES (114,'Morgana');
+INSERT INTO PreferredChamps VALUES (114,'Kindred');
+INSERT INTO PreferredChamps VALUES (115,'Brand');
+INSERT INTO PreferredChamps VALUES (115,'KhaZhix');
 -- --------------------------------------------------------------------
 -- Now, if no violations were detected, COMMIT all the commands in this file
 COMMIT;
