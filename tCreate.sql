@@ -283,9 +283,8 @@ SELECT * FROM Coaches;
 SELECT * FROM Tournaments;
 SELECT * FROM SocialMedia;
 SELECT * FROM ParticipateIn;
-SELECT * FROM PrefferedChamps;
+SELECT * FROM PreferedChamps;
 
--- XXXXXX This gets duplicates
 --SQL QUERIES
 --Q1-SELF JOIN
 --Find pairs of players where one is at least age 21 and the other has the same age as the first player.
@@ -329,7 +328,6 @@ GROUP BY p.playerID, p.iGN, p.name
 HAVING COUNT(*) > 2
 ORDER BY p.playerID;
 --
--- THIS QUERY NEEDS HELP!!!!! CURRENTLY SELECTING EVERYONE
 --Q7-DIVISION, CORRELATED SUBQUERY, NON-CORRELATED SUBQUERY
 --For every player who participated in every tournament on Cloud 9: Find the player ID and IGN.
 SELECT p.playerID, p.iGN
@@ -345,7 +343,8 @@ WHERE NOT EXISTS(
 					     AND t.teamID = pa.teamID)
 		)
 ORDER BY p.iGN;
---Currently Selecting Nothing
+
+
 --Q8-RELATE 4 OR MORE RELATIONS
 --Find players who have won worlds and who they were coached by at that time
 SELECT p.iGN, c.name
