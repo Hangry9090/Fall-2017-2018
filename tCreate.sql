@@ -267,7 +267,7 @@ COMMIT;
 --Find pairs of players where one is at least age 21 and the other has the same age as the first player.
 SELECT p.iGN, q.iGN
 FROM Players p, Players q
-WHERE p.age > 20 AND q.age = p.age AND p.playerID != q.playerID;
+WHERE p.age > 20 AND q.age = p.age AND p.playerID < q.playerID;
 --
 --Q2-MAX/MIN/AVG
 --Find max, min, and average age for all players.
